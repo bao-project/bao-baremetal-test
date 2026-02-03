@@ -9,12 +9,20 @@ BUILD_DIR:=$(ROOT_DIR)/build/$(PLATFORM)
 bmrt_dir:=$(ROOT_DIR)/src/baremetal-runtime
 include $(bmrt_dir)/setup.mk
 
+bmt_dir:=$(ROOT_DIR)/src/tests
+bmb_dir:=$(ROOT_DIR)/src/benchmarks
 
-bmg_dir:=$(ROOT_DIR)/src/baremetal-app
-app_src_dir:=$(bmg_dir)
-include $(app_src_dir)/sources.mk
-C_SRC+=$(addprefix $(app_src_dir)/, $(src_c_srcs))
-include $(bmg_dir)/setup.mk
+ifneq ($(BAREMETAL_TESTS),)
+	app_src_dir:=$(bmt_dir)
+	include $(app_src_dir)/sources.mk
+	C_SRC+=$(addprefix $(app_src_dir)/, $(src_c_srcs))
+include $(bmt_dir)/setup.mk
 
-# Include the final baremetal-runtime build
+else ifneq ($(BAREMETAL_BENCHMARKS),)
+	app_src_dir:=$(bmb_dir)
+	include $(app_src_dir)/sources.mk
+	C_SRC+=$(addprefix $(app_src_dir)/, $(src_c_srcs))
+include $(bmb_dir)/setup.mk
+endif
+
 include $(bmrt_dir)/build.mk
