@@ -25,11 +25,16 @@
 #include <uart.h>
 #include <timer.h>
 
+extern void benchmark_entry(void);
+
 void main(void){
 
-    printf("[TESTF-C] START\n");
-    benchmark_entry();
-    printf("[TESTF-C] END\n");
+    if(cpu_is_master())
+    {
+        printf("[TESTF-C] START\n");
+        benchmark_entry();
+        printf("[TESTF-C] END\n");
+    }
     
     wfi();
 }
