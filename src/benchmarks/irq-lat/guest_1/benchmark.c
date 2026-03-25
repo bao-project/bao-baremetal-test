@@ -9,7 +9,7 @@
 #include <uart.h>
 #include <timer.h>
 #include <bao.h>
-#include <arch_events.h>
+#include <cycle_counter.h>
 
 #define TIMER_INTERVAL   (TIME_MS(1))
 #define TIMER_CYCLES     (PMU_FREQ_HZ / TIMER_FREQ) * TIMER_INTERVAL
@@ -31,7 +31,7 @@ volatile uint8_t loop_buffer[10] = {0};
 void timer_handler(unsigned int id)
 {
     timer_disable();
-    uint64_t now_pmu = events_get_cycle_count();
+    uint64_t now_pmu = cc_get_count();
     curr_time = timer_get();
     now_pmu = now_pmu - TIMER_CYCLES;
 
@@ -44,7 +44,7 @@ void timer_handler(unsigned int id)
         if (samples_remaining == 0) done = 1;
     }
 
-    events_reset_cycle_count();
+    cc_reset_count();
     timer_enable();
     next_tick = timer_set(TIMER_INTERVAL);
 }
@@ -55,12 +55,12 @@ void benchmark_entry(void)
     irq_set_prio(TIMER_IRQ_ID, TIMER_IRQ_PRIO);
     irq_enable(TIMER_IRQ_ID);
 
-    events_start();
-    events_enable_cycle_count();
+    cc_start();
+    cc_enable();
 
     timer_enable();
     next_tick = timer_set(TIMER_INTERVAL);
-    events_reset_cycle_count();
+    cc_reset_count();
 
     while (!done){
         for(size_t i = 0; i < sizeof(loop_buffer); i++){
@@ -69,7 +69,7 @@ void benchmark_entry(void)
     }
 
     for (unsigned i = 0; i < NUM_SAMPLES; i++) {
-        // printf("[SAMPLE]\t%llu\n", (unsigned long long)irq_lat_events_samples[i]);
+        //printf("[SAMPLE]\t%llu\n", (unsigned long long)irq_lat_events_samples[i]);
         printf("[SAMPLE]\t%llu\n", (unsigned long long)irq_lat_timer_samples[i]);
     }
 }
