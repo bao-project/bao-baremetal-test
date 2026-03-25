@@ -1,0 +1,23 @@
+bsp_c_srcs+=bsp/clock_control_nxp_s32.c
+bsp_c_srcs+=bsp/Clock_Ip_Cfg.c
+bsp_c_srcs+=bsp/Clock_Ip_Data.c
+bsp_c_srcs+=bsp/Clock_Ip_Divider.c
+bsp_c_srcs+=bsp/Clock_Ip_DividerTrigger.c
+bsp_c_srcs+=bsp/Clock_Ip_ExtOsc.c
+bsp_c_srcs+=bsp/Clock_Ip_FracDiv.c
+bsp_c_srcs+=bsp/Clock_Ip_Frequency.c
+bsp_c_srcs+=bsp/Clock_Ip_Gate.c
+bsp_c_srcs+=bsp/Clock_Ip_IntOsc.c
+bsp_c_srcs+=bsp/Clock_Ip_Monitor.c
+bsp_c_srcs+=bsp/Clock_Ip_Pll.c
+bsp_c_srcs+=bsp/Clock_Ip_ProgFreqSwitch.c
+bsp_c_srcs+=bsp/Clock_Ip_Selector.c
+bsp_c_srcs+=bsp/Clock_Ip_Specific.c
+bsp_c_srcs+=bsp/Clock_Ip.c
+bsp_c_srcs+=bsp/OsIf_Timer.c
+bsp_c_srcs+=bsp/SchM_Mcu.c
+bsp_s_srcs+=bsp/__aeabi_uldivmod.S
+bsp_s_srcs+=bsp/__aeabi_uidiv.S
+
+src_c_srcs:= init.c plat.c $(bsp_c_srcs)
+src_s_srcs:= $(bsp_s_srcs)
