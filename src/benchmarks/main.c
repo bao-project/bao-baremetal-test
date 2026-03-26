@@ -28,7 +28,6 @@
 extern void benchmark_entry(void);
 
 void main(void){
-
     if(cpu_is_master())
     {
         printf("[TESTF-C] START\n");
