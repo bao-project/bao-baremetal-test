@@ -24,6 +24,7 @@
 #include <irq.h>
 #include <uart.h>
 #include <timer.h>
+#include <testf.h>
 
 void main(void){
     if(cpu_is_master()) {
