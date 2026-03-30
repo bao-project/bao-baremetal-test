@@ -1,4 +1,4 @@
-include $(TESTF_REPO_DIR)/src/bao-test.mk
+include $(TESTF_TESTS_DIR)/src/bao-test.mk
 SRC_DIRS+=$(TESTF_SRC_DIR) $(TESTF_TESTS_DIR)
 C_SRC+=$(TESTF_SRCS)
 INC_DIRS+=$(TESTF_INC_DIR)
