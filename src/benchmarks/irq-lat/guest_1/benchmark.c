@@ -8,11 +8,10 @@
 #include <irq.h>
 #include <uart.h>
 #include <timer.h>
-#include <bao.h>
 #include <cycle_counter.h>
 
 #define TIMER_INTERVAL   (TIME_MS(1))
-#define TIMER_CYCLES     (PMU_FREQ_HZ / TIMER_FREQ) * TIMER_INTERVAL
+#define TIMER_CYCLES     (PLAT_CPU_FREQ / TIMER_FREQ) * TIMER_INTERVAL
 #define WARMUP_SAMPLES   10
 #define NUM_SAMPLES      1000
 
