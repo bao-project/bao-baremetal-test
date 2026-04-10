@@ -25,4 +25,8 @@ else ifneq ($(BAREMETAL_BENCHMARKS),)
 include $(bmb_dir)/setup.mk
 endif
 
+ifneq ($(NUM_CPUS),)
+CPPFLAGS+=-DNUM_CPUS=$(NUM_CPUS)
+endif
+
 include $(bmrt_dir)/build.mk
